@@ -5,7 +5,7 @@ server = Flask(__name__)
 
 s3_access = S3_Object()
 
-@app.route('/gimme', methods=['POST'])
+@server.route('/gimme', methods=['POST'])
 def file_request_handle():
     data = request.json
     filename = data['filename']
@@ -13,5 +13,5 @@ def file_request_handle():
 
 
 def run_server():
-    app.run(debug=True)
+    server.run(debug=True)
     
