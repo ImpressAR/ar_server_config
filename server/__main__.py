@@ -1,4 +1,5 @@
-import core
+from core import Cloud
 
 if __name__ == '__main__':
-    core.core()
+    s3_agent = Cloud('mech-part.obj', 'impressar-files')
+    s3_agent.upload()
