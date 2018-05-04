@@ -1,19 +1,26 @@
 import os
 import boto3
 
-class Cloud:
+class S3_Object:
 
     storage_client = boto3.client('s3')
 
-    def __init__(self, filename, bucket, path='../Test-models/'):
+    def __init__(self, bucket='impressar-files'):
         self.bucket_name = bucket
-        self.filename = filename
-        self.path = os.path.abspath(path) + '/' +self.filename
 
-    def upload(self):
+    def upload(self, filename, path):
         try:
-            self.storage_client.upload_file(self.path, self.bucket_name, self.filename)
+            path = os.path.abspath(path)
+            self.storage_client.upload_file(path + '/' + filename, self.bucket_name, filename)
             print('Done')
+        except Exception as ex:
+            print('wtf s3')
+            print(ex)
+
+    def download(self, filename):
+        try:
+            self.storage_client.download_file(filename, self.bucket_name, filename)
+            print('Downloaded at the home directory')
         except Exception as ex:
             print('wtf s3')
             print(ex)
